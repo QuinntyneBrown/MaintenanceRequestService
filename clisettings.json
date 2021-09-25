@@ -1,0 +1,16 @@
+{
+  "domainNamespace": "MaintenanceRequestService.Api",
+  "applicationNamespace": "MaintenanceRequestService.Api",
+  "infrastructureNamespace": "MaintenanceRequestService.Api",
+  "apiNamespace": "MaintenanceRequestService.Api",
+  "domainDirectory": "C:\\Projects\\MaintenanceRequestService\\src\\MaintenanceRequestService.Api",
+  "applicationDirectory": "C:\\Projects\\MaintenanceRequestService\\src\\MaintenanceRequestService.Api",
+  "infrastructureDirectory": "C:\\Projects\\MaintenanceRequestService\\src\\MaintenanceRequestService.Api",
+  "apiDirectory": "C:\\Projects\\MaintenanceRequestService\\src\\MaintenanceRequestService.Api",
+  "path": "C:\\Projects\\MaintenanceRequestService",
+  "dbContext": "MaintenanceRequestServiceDbContext",
+  "sourceFolder": "src",
+  "resources": [
+    "MaintenanceRequest"
+  ]
+}
