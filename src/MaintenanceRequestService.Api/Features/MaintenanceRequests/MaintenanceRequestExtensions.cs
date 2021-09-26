@@ -1,4 +1,3 @@
-using System;
 using MaintenanceRequestService.Api.Models;
 
 namespace MaintenanceRequestService.Api.Features
@@ -7,11 +6,22 @@ namespace MaintenanceRequestService.Api.Features
     {
         public static MaintenanceRequestDto ToDto(this MaintenanceRequest maintenanceRequest)
         {
-            return new ()
+            return new()
             {
-                MaintenanceRequestId = maintenanceRequest.MaintenanceRequestId
+                MaintenanceRequestId = maintenanceRequest.MaintenanceRequestId,
+                Created = maintenanceRequest.Created,
+                Address = maintenanceRequest.Address,
+                Phone = maintenanceRequest.Phone,
+                Description = maintenanceRequest.Description,
+                UnattendedUnitEntryAllowed = maintenanceRequest.UnattendedUnitEntryAllowed,
+                ReceivedByName = maintenanceRequest.ReceivedByName,
+                ReceivedDate = maintenanceRequest.ReceivedDate,
+                WorkDetails = maintenanceRequest.WorkDetails,
+                WorkStarted = maintenanceRequest.WorkStarted,
+                WorkCompleted = maintenanceRequest.WorkCompleted,
+                WorkCompletedByName = maintenanceRequest.WorkCompletedByName,
+                UnitEntered = maintenanceRequest.UnitEntered
             };
         }
-        
     }
 }

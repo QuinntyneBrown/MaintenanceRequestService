@@ -2,29 +2,32 @@ using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using MaintenanceRequestService.Api.Models;
 using MaintenanceRequestService.Api.Core;
 using MaintenanceRequestService.Api.Interfaces;
-using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace MaintenanceRequestService.Api.Features
 {
-    public class CreateMaintenanceRequest
+    public class UpdateStoredEvent
     {
         public class Validator: AbstractValidator<Request>
         {
             public Validator()
             {
-
+                RuleFor(request => request.StoredEvent).NotNull();
+                RuleFor(request => request.StoredEvent).SetValidator(new StoredEventValidator());
             }
         
         }
 
-        public class Request: MaintenanceRequestService.Api.DomainEvents.CreateMaintenanceRequest, IRequest<Response> { }
+        public class Request: IRequest<Response>
+        {
+            public StoredEventDto StoredEvent { get; set; }
+        }
 
         public class Response: ResponseBase
         {
-            public MaintenanceRequestDto MaintenanceRequest { get; set; }
+            public StoredEventDto StoredEvent { get; set; }
         }
 
         public class Handler: IRequestHandler<Request, Response>
@@ -36,15 +39,13 @@ namespace MaintenanceRequestService.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var maintenanceRequest = new MaintenanceRequest(request);
-                
-                _context.MaintenanceRequests.Add(maintenanceRequest);
+                var storedEvent = await _context.StoredEvents.SingleAsync(x => x.StoredEventId == request.StoredEvent.StoredEventId);
                 
                 await _context.SaveChangesAsync(cancellationToken);
                 
                 return new Response()
                 {
-                    MaintenanceRequest = maintenanceRequest.ToDto()
+                    StoredEvent = storedEvent.ToDto()
                 };
             }
             

@@ -52,14 +52,7 @@ namespace MaintenanceRequestService.Api.Controllers
         [ProducesResponseType(typeof(GetMaintenanceRequestsPage.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetMaintenanceRequestsPage.Response>> Page([FromRoute]GetMaintenanceRequestsPage.Request request)
             => await _mediator.Send(request);
-        
-        [HttpPut(Name = "UpdateMaintenanceRequestRoute")]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(UpdateMaintenanceRequest.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<UpdateMaintenanceRequest.Response>> Update([FromBody]UpdateMaintenanceRequest.Request request)
-            => await _mediator.Send(request);
-        
+                
         [HttpDelete("{maintenanceRequestId}", Name = "RemoveMaintenanceRequestRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

@@ -5,26 +5,29 @@ using System.Threading.Tasks;
 using MaintenanceRequestService.Api.Models;
 using MaintenanceRequestService.Api.Core;
 using MaintenanceRequestService.Api.Interfaces;
-using System;
 
 namespace MaintenanceRequestService.Api.Features
 {
-    public class CreateMaintenanceRequest
+    public class CreateStoredEvent
     {
         public class Validator: AbstractValidator<Request>
         {
             public Validator()
             {
-
+                RuleFor(request => request.StoredEvent).NotNull();
+                RuleFor(request => request.StoredEvent).SetValidator(new StoredEventValidator());
             }
         
         }
 
-        public class Request: MaintenanceRequestService.Api.DomainEvents.CreateMaintenanceRequest, IRequest<Response> { }
+        public class Request: IRequest<Response>
+        {
+            public StoredEventDto StoredEvent { get; set; }
+        }
 
         public class Response: ResponseBase
         {
-            public MaintenanceRequestDto MaintenanceRequest { get; set; }
+            public StoredEventDto StoredEvent { get; set; }
         }
 
         public class Handler: IRequestHandler<Request, Response>
@@ -36,15 +39,15 @@ namespace MaintenanceRequestService.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var maintenanceRequest = new MaintenanceRequest(request);
+                var storedEvent = new StoredEvent();
                 
-                _context.MaintenanceRequests.Add(maintenanceRequest);
+                _context.StoredEvents.Add(storedEvent);
                 
                 await _context.SaveChangesAsync(cancellationToken);
                 
                 return new Response()
                 {
-                    MaintenanceRequest = maintenanceRequest.ToDto()
+                    StoredEvent = storedEvent.ToDto()
                 };
             }
             

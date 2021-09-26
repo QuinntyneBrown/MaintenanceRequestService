@@ -1,4 +1,8 @@
 {
+  "projects": null,
+  "path": "C:\\Projects\\MaintenanceRequestService",
+  "solutionName": null,
+  "rootNamespace": null,
   "domainNamespace": "MaintenanceRequestService.Api",
   "applicationNamespace": "MaintenanceRequestService.Api",
   "infrastructureNamespace": "MaintenanceRequestService.Api",
@@ -7,10 +11,21 @@
   "applicationDirectory": "C:\\Projects\\MaintenanceRequestService\\src\\MaintenanceRequestService.Api",
   "infrastructureDirectory": "C:\\Projects\\MaintenanceRequestService\\src\\MaintenanceRequestService.Api",
   "apiDirectory": "C:\\Projects\\MaintenanceRequestService\\src\\MaintenanceRequestService.Api",
-  "path": "C:\\Projects\\MaintenanceRequestService",
-  "dbContext": "MaintenanceRequestServiceDbContext",
+  "appDirectories": null,
+  "buildingBlocksCoreNamespace": "BuildingBlocks.Core",
+  "buildingBlocksEventStoreNamespace": "BuildingBlocks.EventStore",
+  "store": null,
+  "namespace": null,
+  "domain": null,
+  "core": null,
+  "api": null,
+  "entityIdDataType": null,
   "sourceFolder": "src",
+  "testFolder": null,
+  "dbContext": "MaintenanceRequestServiceDbContext",
+  "eventSourcing": false,
   "resources": [
-    "MaintenanceRequest"
+    "MaintenanceRequest",
+    "StoredEvent"
   ]
 }

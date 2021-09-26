@@ -10,13 +10,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MaintenanceRequestService.Api.Features
 {
-    public class GetMaintenanceRequests
+    public class GetStoredEvents
     {
         public class Request: IRequest<Response> { }
 
         public class Response: ResponseBase
         {
-            public List<MaintenanceRequestDto> MaintenanceRequests { get; set; }
+            public List<StoredEventDto> StoredEvents { get; set; }
         }
 
         public class Handler: IRequestHandler<Request, Response>
@@ -29,9 +29,10 @@ namespace MaintenanceRequestService.Api.Features
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 return new () {
-                    MaintenanceRequests = await _context.MaintenanceRequests.Select(x => x.ToDto()).ToListAsync()
+                    StoredEvents = await _context.StoredEvents.Select(x => x.ToDto()).ToListAsync()
                 };
             }
+            
         }
     }
 }

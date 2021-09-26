@@ -2,9 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>7aa0e83d-3020-4689-a524-d7a54de6e3af</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CSharpFunctionalExtensions" Version="2.20.4" />
     <PackageReference Include="FluentValidation" Version="10.3.3" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" NoWarn="NU1605" />
@@ -17,6 +19,8 @@
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.2" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="5.0.10" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
 
 </Project>

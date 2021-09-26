@@ -1,18 +1,16 @@
-using FluentValidation;
-using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using System;
-using MaintenanceRequestService.Api.Models;
 using MaintenanceRequestService.Api.Core;
 using MaintenanceRequestService.Api.Interfaces;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MaintenanceRequestService.Api.Features
 {
     public class RemoveMaintenanceRequest
     {
-        public class Request: IRequest<Response>
+        public class Request: DomainEvents.RemoveMaintenanceRequest, IRequest<Response>
         {
             public Guid MaintenanceRequestId { get; set; }
         }
@@ -25,6 +23,7 @@ namespace MaintenanceRequestService.Api.Features
         public class Handler: IRequestHandler<Request, Response>
         {
             private readonly IMaintenanceRequestServiceDbContext _context;
+
         
             public Handler(IMaintenanceRequestServiceDbContext context)
                 => _context = context;
@@ -32,12 +31,14 @@ namespace MaintenanceRequestService.Api.Features
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var maintenanceRequest = await _context.MaintenanceRequests.SingleAsync(x => x.MaintenanceRequestId == request.MaintenanceRequestId);
-                
+
+                maintenanceRequest.Apply(request);
+
                 _context.MaintenanceRequests.Remove(maintenanceRequest);
                 
                 await _context.SaveChangesAsync(cancellationToken);
                 
-                return new Response()
+                return new ()
                 {
                     MaintenanceRequest = maintenanceRequest.ToDto()
                 };

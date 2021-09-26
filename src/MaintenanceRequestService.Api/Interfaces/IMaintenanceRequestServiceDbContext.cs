@@ -8,6 +8,7 @@ namespace MaintenanceRequestService.Api.Interfaces
     public interface IMaintenanceRequestServiceDbContext
     {
         DbSet<MaintenanceRequest> MaintenanceRequests { get; }
+        DbSet<StoredEvent> StoredEvents { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         
     }

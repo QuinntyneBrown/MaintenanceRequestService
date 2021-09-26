@@ -2,21 +2,22 @@ using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
 using MaintenanceRequestService.Api.Core;
 using MaintenanceRequestService.Api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace MaintenanceRequestService.Api.Features
 {
-    public class GetMaintenanceRequests
+    public class GetStoredEventById
     {
-        public class Request: IRequest<Response> { }
+        public class Request: IRequest<Response>
+        {
+            public Guid StoredEventId { get; set; }
+        }
 
         public class Response: ResponseBase
         {
-            public List<MaintenanceRequestDto> MaintenanceRequests { get; set; }
+            public StoredEventDto StoredEvent { get; set; }
         }
 
         public class Handler: IRequestHandler<Request, Response>
@@ -29,9 +30,10 @@ namespace MaintenanceRequestService.Api.Features
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 return new () {
-                    MaintenanceRequests = await _context.MaintenanceRequests.Select(x => x.ToDto()).ToListAsync()
+                    StoredEvent = (await _context.StoredEvents.SingleOrDefaultAsync(x => x.StoredEventId == request.StoredEventId)).ToDto()
                 };
             }
+            
         }
     }
 }

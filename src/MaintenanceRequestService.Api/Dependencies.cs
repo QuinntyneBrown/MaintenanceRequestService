@@ -53,12 +53,12 @@ namespace MaintenanceRequestService.Api
 
             services.AddTransient<IMaintenanceRequestServiceDbContext, MaintenanceRequestServiceDbContext>();
 
-            services.AddDbContext<MaintenanceRequestServiceDbContext>(options =>
-            {
-                options.UseInMemoryDatabase(nameof(MaintenanceRequestService.Api))
-                .LogTo(Console.WriteLine)
-                .EnableSensitiveDataLogging();
-            });
+            services.AddDbContext<MaintenanceRequestServiceDbContext>(
+                        o => o.UseCosmos(
+                            configuration["CosmosDb:EndpointUrl"],
+                            configuration["CosmosDb:PrivateKey"],
+                            databaseName: configuration["CosmosDb:DbName"])
+                        );
 
             services.AddControllers();
         }

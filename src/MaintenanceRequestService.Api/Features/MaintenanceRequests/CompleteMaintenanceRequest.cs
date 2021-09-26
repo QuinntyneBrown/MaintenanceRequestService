@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace MaintenanceRequestService.Api.Features
 {
-    public class UpdateMaintenanceRequestWorkDetails
+    public class CompleteMaintenanceRequest
     {
-        public class Request : DomainEvents.UpdateMaintenanceRequestWorkDetails, IRequest<Response>
+        public class Request : DomainEvents.CompleteMaintenanceRequest, IRequest<Response>
         {
             public Guid MaitenanceRequestId { get; set; }
         }
