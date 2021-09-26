@@ -1,4 +1,5 @@
 using MaintenanceRequestService.Api.Core;
+using MaintenanceRequestService.Api.Core.Models;
 using MaintenanceRequestService.Api.DomainEvents;
 using System;
 

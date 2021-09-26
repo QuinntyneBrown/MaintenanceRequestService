@@ -1,8 +1,8 @@
 {
   "projects": null,
   "path": "C:\\Projects\\MaintenanceRequestService",
-  "solutionName": null,
-  "rootNamespace": null,
+  "solutionName": "MaintenanceRequestService",
+  "rootNamespace": "MaintenanceRequestService",
   "domainNamespace": "MaintenanceRequestService.Api",
   "applicationNamespace": "MaintenanceRequestService.Api",
   "infrastructureNamespace": "MaintenanceRequestService.Api",
@@ -21,7 +21,7 @@
   "api": null,
   "entityIdDataType": null,
   "sourceFolder": "src",
-  "testFolder": null,
+  "TestFolder": "test",
   "dbContext": "MaintenanceRequestServiceDbContext",
   "eventSourcing": false,
   "resources": [

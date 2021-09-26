@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using MaintenanceRequestService.Api.Models;
+using System;
+using System.Collections.Generic;
+using static Newtonsoft.Json.JsonConvert;
 using static System.Runtime.Serialization.FormatterServices;
 
 namespace MaintenanceRequestService.Api.Core
 {
     public abstract class AggregateRoot : IAggregateRoot
     {
-        internal List<IEvent> _events = new List<IEvent>();
-
-        [NotMapped]
-        public IReadOnlyCollection<IEvent> DomainEvents => _events.AsReadOnly();
+        protected List<StoredEvent> StoredEvents { get; private set; } = new List<StoredEvent>();
 
         public AggregateRoot(IEnumerable<IEvent> events)
         {
@@ -21,17 +20,31 @@ namespace MaintenanceRequestService.Api.Core
 
         }
 
-        public void RaiseDomainEvent(IEvent @event)
+        public void StoreEvent(IEvent @event)
         {
-            _events ??= new List<IEvent>();
-            _events.Add(@event);
+            var type = GetType();
+
+            var storedEvent = new StoredEvent
+            {
+                StoredEventId = Guid.NewGuid(),
+                Aggregate = GetType().Name,
+                AggregateDotNetType = GetType().AssemblyQualifiedName,
+                Data = SerializeObject(@event),
+                StreamId = (Guid)type.GetProperty($"{type.Name}Id").GetValue(this, null),
+                DotNetType = @event.GetType().AssemblyQualifiedName,
+                Type = @event.GetType().Name,
+                CreatedOn = @event.Created,
+                CorrelationId = new Guid()
+            };
+
+            StoredEvents.Add(storedEvent);
         }
-        public void ClearChanges() => _events?.Clear();
+
         public AggregateRoot Apply(IEvent @event)
         {
             When(@event);
             EnsureValidState();
-            RaiseDomainEvent(@event);
+            StoreEvent(@event);
             return this;
         }
         protected abstract void When(dynamic @event);

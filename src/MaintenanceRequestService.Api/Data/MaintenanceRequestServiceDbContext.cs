@@ -1,5 +1,5 @@
-using MaintenanceRequestService.Api.Models;
 using MaintenanceRequestService.Api.Interfaces;
+using MaintenanceRequestService.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace MaintenanceRequestService.Api.Data
@@ -17,6 +17,6 @@ namespace MaintenanceRequestService.Api.Data
             
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(MaintenanceRequestServiceDbContext).Assembly);
         }
-        
+
     }
 }

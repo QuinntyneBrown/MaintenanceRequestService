@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
-namespace MaintenanceRequestService.Api.Core
+namespace MaintenanceRequestService.Api.Core.Models
 {
     [Owned]
     public class Address : ValueObject
